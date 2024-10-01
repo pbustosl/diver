@@ -4,6 +4,11 @@ module ZOrder
   BACKGROUND, STARS, PLAYER, UI = *0..3
 end
 
+module WinSize
+  WIDTH = 800
+  HEIGHT = 600
+end
+
 class Star
   attr_reader :x, :y
 
@@ -13,8 +18,8 @@ class Star
     @color.red = rand(256 - 40) + 40
     @color.green = rand(256 - 40) + 40
     @color.blue = rand(256 - 40) + 40
-    @x = rand * 640
-    @y = rand * 480
+    @x = rand * WinSize::WIDTH
+    @y = rand * WinSize::HEIGHT
   end
 
   def draw
@@ -54,8 +59,8 @@ class Player
   def move
     @x += @vel_x
     @y += @vel_y
-    @x %= 640
-    @y %= 480
+    @x %= WinSize::WIDTH
+    @y %= WinSize::HEIGHT
 
     @vel_x *= 0.95
     @vel_y *= 0.95
@@ -81,7 +86,7 @@ end
 
 class DiverDanger < Gosu::Window
   def initialize
-    super 800, 600
+    super WinSize::WIDTH, WinSize::HEIGHT
     self.caption = "Diver Danger"
     @background_image = Gosu::Image.new("media/sea.png", :tileable => true)
 
@@ -130,4 +135,3 @@ class DiverDanger < Gosu::Window
 end
 
 DiverDanger.new.show
-
